@@ -1,0 +1,2 @@
+ALTER TABLE enterprises
+ADD COLUMN email VARCHAR(100) NOT NULL

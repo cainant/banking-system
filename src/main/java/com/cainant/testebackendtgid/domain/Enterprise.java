@@ -3,10 +3,7 @@ package com.cainant.testebackendtgid.domain;
 import com.cainant.testebackendtgid.dto.enterprise.EnterpriseRegisterData;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,6 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @Entity
 @Embeddable
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -24,16 +22,19 @@ public class Enterprise {
 
     private String name;
 
+    private String email;
+
     private String cnpj;
 
-    private Long balance;
+    private Float balance;
 
     private Float fee;
 
     public Enterprise(@Valid EnterpriseRegisterData registerData) {
         this.name = registerData.name();
         this.cnpj = registerData.cnpj();
-        this.balance = ThreadLocalRandom.current().nextLong(1000, 5000);
+        this.email = registerData.email();
+        this.balance = ThreadLocalRandom.current().nextFloat(1000, 5000);
         this.fee = registerData.fee();
     }
 }

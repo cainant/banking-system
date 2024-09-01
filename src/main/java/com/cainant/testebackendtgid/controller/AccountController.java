@@ -9,6 +9,7 @@ import com.cainant.testebackendtgid.dto.account.AccountUpdateData;
 import com.cainant.testebackendtgid.repository.AccountRepository;
 import com.cainant.testebackendtgid.repository.ClientRepository;
 import com.cainant.testebackendtgid.repository.EnterpriseRepository;
+import com.cainant.testebackendtgid.service.TransactionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -70,14 +71,7 @@ public class AccountController {
         var account = accountRepository.getReferenceById(id);
         var enterprise = account.getEnterprise();
 
-        account.setBalance(account.getBalance() + accountTransactionData.value());
-
-        var fee = enterprise.getFee() * accountTransactionData.value();
-        var entepriseBalance = enterprise.getBalance();
-        enterprise.setBalance(entepriseBalance + accountTransactionData.value() - fee);
-
-        // callback
-        return ResponseEntity.ok().build();
+        return TransactionService.deposit(account, enterprise, accountTransactionData);
     }
 
     @PostMapping("/{id}/withdrawal")
@@ -86,19 +80,6 @@ public class AccountController {
         var account = accountRepository.getReferenceById(id);
         var enterprise = account.getEnterprise();
 
-        var fee = enterprise.getFee() * accountTransactionData.value();
-        var enterpriseBalance = enterprise.getBalance();
-        var finalBalance = enterpriseBalance - (fee + accountTransactionData.value());
-        if (finalBalance >= 0) {
-            if (account.getBalance() >= accountTransactionData.value()) {
-                account.setBalance(account.getBalance() - accountTransactionData.value());
-                enterprise.setBalance(finalBalance);
-
-                // callback
-                return ResponseEntity.ok().build();
-            }
-            return new ResponseEntity<>("Insufficient user balance", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("Insufficient enterprise balance", HttpStatus.BAD_REQUEST);
+        return TransactionService.withdrawal(account, enterprise, accountTransactionData);
     }
 }

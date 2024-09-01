@@ -1,14 +1,10 @@
 package com.cainant.testebackendtgid.controller;
 
 import com.cainant.testebackendtgid.domain.Account;
-import com.cainant.testebackendtgid.domain.Client;
 import com.cainant.testebackendtgid.domain.Enterprise;
-import com.cainant.testebackendtgid.dto.AccountCreatedData;
-import com.cainant.testebackendtgid.dto.AccountRegisterData;
 import com.cainant.testebackendtgid.dto.enterprise.EnterpriseRegisterData;
 import com.cainant.testebackendtgid.dto.enterprise.EnterpriseCreatedData;
 import com.cainant.testebackendtgid.dto.enterprise.EnterpriseListData;
-import com.cainant.testebackendtgid.repository.ClientRepository;
 import com.cainant.testebackendtgid.repository.AccountRepository;
 import com.cainant.testebackendtgid.repository.EnterpriseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.Objects;
 
 @RestController
 @RequestMapping("enterprise")

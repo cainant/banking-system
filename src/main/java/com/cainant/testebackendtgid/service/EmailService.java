@@ -1,6 +1,5 @@
 package com.cainant.testebackendtgid.service;
 
-import com.cainant.testebackendtgid.domain.Client;
 import com.mailersend.sdk.MailerSend;
 import com.mailersend.sdk.emails.Email;
 import com.mailersend.sdk.exceptions.MailerSendException;

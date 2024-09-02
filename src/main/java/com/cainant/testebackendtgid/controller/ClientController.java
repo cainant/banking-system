@@ -57,7 +57,7 @@ public class ClientController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity updateClient(@PathVariable Long id, @RequestBody @Valid ClientUpdateData clientUpdateData) {
+    public ResponseEntity<Object> updateClient(@PathVariable Long id, @RequestBody @Valid ClientUpdateData clientUpdateData) {
         var client = clientRepository.getReferenceById(id);
 
         client.setName(clientUpdateData.name());

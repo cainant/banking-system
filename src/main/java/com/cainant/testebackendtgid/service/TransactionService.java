@@ -32,7 +32,7 @@ public class TransactionService {
                 webhookExecutionService.executeWebhook(enterprise.getWebhookURL(), enterprisePayload);
 
                 var clientPayload = String.format("You have successfully withdrawn R$ %.2f from %s", accountTransactionData.value(), enterprise.getName());
-                emailService.notifyUser(account.getEmail(), clientPayload);
+                emailService.notifyUser(account.getClient().getName(), account.getEmail(), clientPayload);
 
                 return ResponseEntity.ok().build();
             }
@@ -52,7 +52,7 @@ public class TransactionService {
         webhookExecutionService.executeWebhook(enterprise.getWebhookURL(), enterprisePayload);
 
         var clientPayload = String.format("You have successfully deposited R$ %.2f at %s", accountTransactionData.value(), enterprise.getName());
-        emailService.notifyUser(account.getEmail(), clientPayload);
+        emailService.notifyUser(account.getClient().getName(), account.getEmail(), clientPayload);
 
         return ResponseEntity.ok().build();
     }

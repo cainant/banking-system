@@ -30,6 +30,9 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private TransactionService transactionService;
+
     @PostMapping
     @Transactional
     public ResponseEntity<AccountCreatedData> newClient(@RequestBody @Valid AccountRegisterData accountData, UriComponentsBuilder uriBuilder) {
@@ -71,7 +74,7 @@ public class AccountController {
         var account = accountRepository.getReferenceById(id);
         var enterprise = account.getEnterprise();
 
-        return TransactionService.deposit(account, enterprise, accountTransactionData);
+        return transactionService.deposit(account, enterprise, accountTransactionData);
     }
 
     @PostMapping("/{id}/withdrawal")
@@ -80,6 +83,6 @@ public class AccountController {
         var account = accountRepository.getReferenceById(id);
         var enterprise = account.getEnterprise();
 
-        return TransactionService.withdrawal(account, enterprise, accountTransactionData);
+        return transactionService.withdrawal(account, enterprise, accountTransactionData);
     }
 }

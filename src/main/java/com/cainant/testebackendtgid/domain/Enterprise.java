@@ -30,11 +30,14 @@ public class Enterprise {
 
     private Float fee;
 
+    private String webhookURL;
+
     public Enterprise(@Valid EnterpriseRegisterData registerData) {
         this.name = registerData.name();
         this.cnpj = registerData.cnpj();
         this.email = registerData.email();
         this.balance = ThreadLocalRandom.current().nextFloat(1000, 5000);
         this.fee = registerData.fee();
+        this.webhookURL = registerData.webhookURL();
     }
 }

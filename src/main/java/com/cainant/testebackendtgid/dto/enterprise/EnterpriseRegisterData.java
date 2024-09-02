@@ -18,7 +18,10 @@ public record EnterpriseRegisterData(
         String email,
 
         @NotNull
-        Float fee
+        Float fee,
+
+        @NotBlank
+        String webhookURL
 
 ) {
 }

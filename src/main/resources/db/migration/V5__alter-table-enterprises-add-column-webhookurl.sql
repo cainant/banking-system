@@ -1,0 +1,2 @@
+ALTER TABLE enterprises
+    ADD COLUMN webhookurl VARCHAR(100) NOT NULL

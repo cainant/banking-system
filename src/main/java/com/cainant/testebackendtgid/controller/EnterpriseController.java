@@ -5,6 +5,7 @@ import com.cainant.testebackendtgid.domain.Enterprise;
 import com.cainant.testebackendtgid.dto.enterprise.EnterpriseRegisterData;
 import com.cainant.testebackendtgid.dto.enterprise.EnterpriseCreatedData;
 import com.cainant.testebackendtgid.dto.enterprise.EnterpriseListData;
+import com.cainant.testebackendtgid.dto.enterprise.EnterpriseUpdateData;
 import com.cainant.testebackendtgid.repository.AccountRepository;
 import com.cainant.testebackendtgid.repository.EnterpriseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,15 @@ public class EnterpriseController {
         var accounts = accountRepository.findAccountsByEnterpriseId(pagination, id);
 
         return ResponseEntity.ok(accounts);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Object> updateWebhook(@PathVariable Long id, @RequestBody @Valid EnterpriseUpdateData enterpriseUpdateData) {
+        var enterprise = enterpriseRepository.getReferenceById(id);
+        enterprise.setWebhookURL(enterpriseUpdateData.webhookURL());
+
+        return ResponseEntity.ok().build();
     }
 
 }
